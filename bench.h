@@ -1,9 +1,6 @@
 #pragma once
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
-#include <limits.h>
-#include <string.h>
 
 #define ANSI_BOLD  "\x1b[1m"
 #define ANSI_RED   "\x1b[31m"
@@ -56,10 +53,16 @@ static inline double bench_percentile(long* sorted, int n, double p) {
         double _b   = 1 / (double)(batch);                                     \
         printf(ANSI_BOLD "\n\n=== %s ===\n\n" ANSI_RESET, (label));            \
         double p50  = bench_percentile(_samples, (iters), 0.500) * _b;         \
-        double p90  = bench_percentile(_samples, (iters), 0.950) * _b;         \
+        char* unit50 = "ns";                                                   \
+        double p90  = bench_percentile(_samples, (iters), 0.900) * _b;         \
+        char* unit90 = "ns";                                                   \
         double p99  = bench_percentile(_samples, (iters), 0.990) * _b;         \
-        printf("  p50 : %6.2f ns\n", p50);                                     \
-        printf("  p90 : %6.2f ns\n", p90);                                     \
-        printf("  p99 : %6.2f ns\n", p99);                                     \
+        char* unit99 = "ns";                                                   \
+        if (p50 > 1000) { p50 *= 0.001; unit50 = "μs";}                        \
+        if (p90 > 1000) { p90 *= 0.001; unit90 = "μs";}                        \
+        if (p99 > 1000) { p99 *= 0.001; unit99 = "μs";}                        \
+        printf("  p50 : %6.2f %s\n", p50, unit50);                             \
+        printf("  p90 : %6.2f %s\n", p90, unit90);                             \
+        printf("  p99 : %6.2f %s\n", p99, unit99);                             \
         free(_samples);                                                        \
     } while (0)

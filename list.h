@@ -45,6 +45,8 @@ void list_delete_back(list_t* list, void* dest);
 // Deletes node at specified index and copies its data to dest.
 void list_delete_at(list_t* list, size_t index, void* dest);
 
+#ifdef LIST_IMPLEMENTATION
+
 node_t* node_alloc(size_t elem_size) {
     node_t* n = malloc(sizeof(node_t));
     if (!n) return NULL;
@@ -210,3 +212,5 @@ void list_delete_at(list_t* list, size_t index, void* dest) {
     free(it);
     list->count--;
 }
+
+#endif // LIST_IMPLEMENTATION
