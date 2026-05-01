@@ -53,8 +53,9 @@ Measured over 1e6 iterations with 100 warmup cycles:
 | Operation                 |    p50    |     p90     |    p99    |
 | -----------------------   | --------- | ----------  | --------- | 
 | Alloc + Free              | 008.19 ns | 008.83 ns   | 009.37 ns |
-| Front insert (10000)      | 348.60 µs | 453.66 µs   | 723.73 µs |
-| Back insert (10000)       | 362.04 µs | 433.11 µs   | 598.51 µs |
+| Front insert   (10000)    | 348.60 µs | 453.66 µs   | 723.73 µs |
+| Back insert    (10000)    | 362.04 µs | 433.11 µs   | 598.51 µs |
+| List traversal (10000)    | 419.53 µs | 551.27 µs   | 723.48 µs |
 
 For comparison, my benchmarks show that inserting one element in this list is approximately **22** times slower than in my dynamic array.
 
